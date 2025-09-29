@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSubscribeDev } from '@subscribe.dev/react';
 
 type VideoMetadata = {
@@ -10,6 +10,10 @@ type VideoMetadata = {
 
 type GenerationHistory = {
   videos: VideoMetadata[];
+};
+
+type ThemePreference = {
+  theme: 'purple' | 'white';
 };
 
 export function RatVideoGenerator() {
@@ -25,6 +29,26 @@ export function RatVideoGenerator() {
   const [history, setHistory, syncStatus] = useStorage!<GenerationHistory>('rat-video-history', {
     videos: []
   });
+
+  // Use storage for theme preference - guaranteed to be available when authenticated
+  const [themePreference, setThemePreference] = useStorage!<ThemePreference>('theme-preference', {
+    theme: 'purple'
+  });
+
+  // Apply theme to document
+  useEffect(() => {
+    if (themePreference.theme === 'white') {
+      document.documentElement.setAttribute('data-theme', 'white');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+  }, [themePreference.theme]);
+
+  const toggleTheme = () => {
+    setThemePreference({
+      theme: themePreference.theme === 'purple' ? 'white' : 'purple'
+    });
+  };
 
   const handleGenerate = async () => {
     if (!client || !prompt.trim()) return;
@@ -95,6 +119,9 @@ export function RatVideoGenerator() {
               )}
             </div>
             <div className="user-actions">
+              <button onClick={toggleTheme} className="theme-toggle-btn" title="Toggle theme">
+                {themePreference.theme === 'purple' ? '☀️' : '🎨'}
+              </button>
               <button onClick={subscribe!} className="manage-btn">
                 Manage Plan
               </button>
