@@ -1,11 +1,11 @@
 Please implement the following feature request:
 
-**Feature Request:** Add a whithe theme
+**Feature Request:** Add some pre-filled prompts for the user to choose from
 
 **Project Context:**
 - Repository: v-vibers/ai-rat-video-generator
-- Branch: feat/add-a-whithe-theme
-- Base Branch: feat/initial-implementation
+- Branch: feat/add-some-pre-filled-prompts-for-the-user
+- Base Branch: feat/add-a-whithe-theme
 - Requested by: AlexLunaArceDev
 
 **CRITICAL - Read Project Instructions First:**

@@ -266,6 +266,61 @@
   margin-bottom: 0.5rem;
 }
 
+/* Preset Prompts Styles */
+.preset-prompts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.preset-prompt-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--theme-input-bg);
+  border: 2px solid var(--theme-border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  color: var(--theme-text-primary);
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.preset-prompt-btn:hover:not(:disabled) {
+  border-color: var(--theme-border-hover);
+  background: var(--theme-button-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--theme-shadow-small);
+}
+
+.preset-prompt-btn.active {
+  background: var(--theme-accent-primary);
+  border-color: var(--theme-accent-primary);
+  color: white;
+}
+
+.preset-prompt-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.preset-emoji {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.preset-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  font-weight: 500;
+}
+
 .prompt-input {
   width: 100%;
   padding: 1rem;
@@ -543,5 +598,14 @@
 
   .history-grid {
     grid-template-columns: 1fr;
+  }
+
+  .preset-prompts {
+    grid-template-columns: 1fr;
+  }
+
+  .preset-text {
+    white-space: normal;
+    overflow: visible;
   }
 }

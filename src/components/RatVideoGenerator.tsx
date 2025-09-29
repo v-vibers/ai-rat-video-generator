@@ -16,6 +16,21 @@ type ThemePreference = {
   theme: 'purple' | 'white';
 };
 
+const PRESET_PROMPTS = [
+  { emoji: '🕺', text: 'dancing in a disco with colorful lights' },
+  { emoji: '🧀', text: 'eating cheese in a cozy kitchen' },
+  { emoji: '🏃', text: 'running through a maze at high speed' },
+  { emoji: '🎩', text: 'wearing a top hat and doing magic tricks' },
+  { emoji: '🚀', text: 'flying through space in a tiny spaceship' },
+  { emoji: '🎸', text: 'playing electric guitar on stage' },
+  { emoji: '🏄', text: 'surfing on a huge wave' },
+  { emoji: '🍕', text: 'making pizza in an Italian restaurant' },
+  { emoji: '🎨', text: 'painting a masterpiece in an art studio' },
+  { emoji: '🧑‍🍳', text: 'cooking in a professional kitchen' },
+  { emoji: '🏎️', text: 'racing in a Formula 1 car' },
+  { emoji: '🎭', text: 'performing in a theater' }
+];
+
 export function RatVideoGenerator() {
   const { client, user, usage, subscribe, subscriptionStatus, signOut, useStorage } = useSubscribeDev();
 
@@ -101,6 +116,11 @@ export function RatVideoGenerator() {
     }
   };
 
+  const handlePresetClick = (presetText: string) => {
+    setPrompt(presetText);
+    setError(null);
+  };
+
   return (
     <div className="generator-container">
       <header className="generator-header">
@@ -139,13 +159,29 @@ export function RatVideoGenerator() {
 
           <div className="input-section">
             <label htmlFor="prompt">What should the rat do?</label>
+
+            <div className="preset-prompts">
+              {PRESET_PROMPTS.map((preset, index) => (
+                <button
+                  key={index}
+                  onClick={() => handlePresetClick(preset.text)}
+                  disabled={loading}
+                  className={`preset-prompt-btn ${prompt === preset.text ? 'active' : ''}`}
+                  title={preset.text}
+                >
+                  <span className="preset-emoji">{preset.emoji}</span>
+                  <span className="preset-text">{preset.text}</span>
+                </button>
+              ))}
+            </div>
+
             <input
               id="prompt"
               type="text"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               onKeyPress={handleKeyPress}
-              placeholder="e.g., dancing in a disco, eating cheese, running through a maze"
+              placeholder="Choose a preset above or type your own idea..."
               disabled={loading}
               className="prompt-input"
             />
